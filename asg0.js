@@ -10,17 +10,41 @@ function main() {
   // Get the rendering context for 2DCG
   var ctx = canvas.getContext('2d');
 
-  // Draw a blue rectangle
-  ctx.fillStyle = 'rgba(0, 0, 0, 1.0)'; // Set color to blue
-  ctx.fillRect(0, 0, 400, 400);        // Fill a rectangle with the color
+  // add black background
+  clearCanvas()
+  handleDrawEvent()
 
-  var v1 = new Vector3([2.25, 2.25, 0])
-  drawVector(v1, 'red')
+
+  var drawButton = document.getElementById('drawButton')
+
+  drawButton.addEventListener('click', handleDrawEvent)
+}
+
+function handleDrawEvent() {
+    //to be handleDrawEvent
+    var xInput = document.getElementById('xinput').value
+    var yInput = document.getElementById('yinput').value
+
+    v1 = new Vector3([xInput, yInput, 0])
+
+    clearCanvas()
+    drawVector(v1, 'red')
+}
+
+function clearCanvas() {
+  //reset for a new vector
+  var canvas = document.getElementById('example')
+  var ctx = canvas.getContext('2d')
+
+  console.log('clearing canvas!')
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  ctx.fillStyle = 'rgba(0, 0, 0, 1.0)'; // Set color to black
+  ctx.fillRect(0, 0, 400, 400);        // Fill a rectangle with the color
 }
 
 function drawVector(vec, color) {
   // Retrieve <canvas> element
-
   var canvas = document.getElementById('example');
   var ctx = canvas.getContext('2d')
   ctx.strokeStyle = color
@@ -30,6 +54,7 @@ function drawVector(vec, color) {
   var originY = canvas.height / 2 
 
   //adding the vector to the origin
+  ctx.beginPath()
   ctx.moveTo(originX, originY)
   ctx.lineTo(originX + vec.elements[0] * 20, originY - vec.elements[1] * 20)
   ctx.stroke()
