@@ -22,13 +22,18 @@ function main() {
 
 function handleDrawEvent() {
     //to be handleDrawEvent
-    var xInput = document.getElementById('xinput').value
-    var yInput = document.getElementById('yinput').value
+    var xInput1 = document.getElementById('xInput1').value
+    var yInput1 = document.getElementById('yInput1').value
 
-    v1 = new Vector3([xInput, yInput, 0])
+    var xInput2 = document.getElementById('xInput2').value
+    var yInput2 = document.getElementById('yInput2').value
+
+    v1 = new Vector3([xInput1, yInput1, 0])
+    v2 = new Vector3([xInput2, yInput2, 0])
 
     clearCanvas()
     drawVector(v1, 'red')
+    drawVector(v2, 'blue')
 }
 
 function clearCanvas() {
