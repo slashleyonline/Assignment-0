@@ -93,11 +93,20 @@ function handleDrawOperationEvent() {
     d = Vector3.dot(v1,v2)
     cosa = d / (v1.magnitude() * v2.magnitude())
     angle = Math.acos(cosa) * (180 / Math.PI)
-    console.log(angle)
+    console.log('Angle: ', angle)
   }
+  else if (operation == 'cross product') { 
+    v3 = Vector3.cross(v1, v2)
+    console.log('Cross:', v3.elements[2])
+  }
+  else if (operation == 'area') { 
+    v3 = Vector3.cross(v1, v2)
+    console.log('Area:', (v3.elements[2]) / 4)
+  }
+}
 
-
-
+function areaTriangle(v1, v2) {
+  return;
 }
 
 function clearCanvas() {
@@ -105,7 +114,6 @@ function clearCanvas() {
   var canvas = document.getElementById('example')
   var ctx = canvas.getContext('2d')
 
-  console.log('clearing canvas!')
 
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   ctx.fillStyle = 'rgba(0, 0, 0, 1.0)'; // Set color to black
