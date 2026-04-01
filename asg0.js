@@ -16,12 +16,15 @@ function main() {
 
 
   var drawButton = document.getElementById('drawButton')
+  var opDrawButton = document.getElementById('opDrawButton')
 
   drawButton.addEventListener('click', handleDrawEvent)
+  opDrawButton.addEventListener('click', handleDrawOperationEvent)
 }
 
 function handleDrawEvent() {
-    //to be handleDrawEvent
+    clearCanvas()
+    
     var xInput1 = document.getElementById('xInput1').value
     var yInput1 = document.getElementById('yInput1').value
 
@@ -31,9 +34,70 @@ function handleDrawEvent() {
     v1 = new Vector3([xInput1, yInput1, 0])
     v2 = new Vector3([xInput2, yInput2, 0])
 
-    clearCanvas()
+
     drawVector(v1, 'red')
     drawVector(v2, 'blue')
+}
+
+function handleDrawOperationEvent() {
+  clearCanvas()
+  handleDrawEvent()
+
+  var operation = document.getElementById('operations').value
+  var scalar = document.getElementById('scalar').value
+
+  var xInput1 = document.getElementById('xInput1').value
+  var yInput1 = document.getElementById('yInput1').value
+
+  var xInput2 = document.getElementById('xInput2').value
+  var yInput2 = document.getElementById('yInput2').value
+
+  v1 = new Vector3([xInput1, yInput1, 0])
+  v2 = new Vector3([xInput2, yInput2, 0])
+
+
+  //draw third vector
+  if (operation == 'add') {
+    v3 = v1.add(v2)
+    drawVector(v3, 'green')
+  }
+  else if (operation == 'subtract') {
+    v3 = v1.sub(v2)
+    drawVector(v3, 'green')
+  }
+  else if (operation == 'multiply') {
+    v3 = v1.mul(scalar)
+    v4 = v2.mul(scalar)
+    drawVector(v3, 'green')
+    drawVector(v4, 'green')
+  }
+  else if (operation == 'divide') {
+    v3 = v1.div(scalar)
+    v4 = v2.div(scalar)
+    drawVector(v3, 'green')
+    drawVector(v4, 'green')
+  }
+  else if (operation == 'magnitude') { 
+    v1mag = v1.magnitude()
+    v2mag = v2.magnitude()
+    console.log ('Magnitude v1: ', v1mag)
+    console.log ('Magnitude v2: ', v2mag)
+  }
+  else if (operation == 'normalize') {
+    v3 = v1.normalize()
+    v4 = v2.normalize()
+    drawVector(v3, 'green')
+    drawVector(v4, 'green')
+  }
+  else if (operation == 'angle between') { 
+    d = Vector3.dot(v1,v2)
+    cosa = d / (v1.magnitude() * v2.magnitude())
+    angle = Math.acos(cosa) * (180 / Math.PI)
+    console.log(angle)
+  }
+
+
+
 }
 
 function clearCanvas() {
@@ -64,3 +128,4 @@ function drawVector(vec, color) {
   ctx.lineTo(originX + vec.elements[0] * 20, originY - vec.elements[1] * 20)
   ctx.stroke()
 }
+
